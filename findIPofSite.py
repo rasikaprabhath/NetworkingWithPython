@@ -1,32 +1,28 @@
-#find the IP address of a web site
+#find the IP address of a given web site by creating a socket
+#URL of the web site is needed to give in www. format
 
 import requests
 import socket
 import sys
-port = 80
-host_name = input('enter the web address in www format ')
-print(host_name)
-# find the local IP
-clientName = socket.gethostname()
-print((f'{clientName}  clientName'))
-clientIP = socket.gethostbyname(clientName)
 
-try:
-    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    print('socket successfully created')
-except socket.error as err:
-    print(f'socket creation failed {err}')
+webaddress = input('Enter the website address in www. format : ')
 
+
+#find the local IP and the client name (computer name)
+
+clientName=socket.gethostname()
+clientIP=socket.gethostbyname(clientName)
+
+
+#find the website IP
 try:
-    host_ip = socket.gethostbyname(host_name)
+    websiteIP=socket.gethostbyname(webaddress)
 
 except socket.gaierror:
-    print('error resolving')
-    sys.exit()
-s.connect((host_ip, port))
-print(f'IP address of {host_name} is {host_ip}')
-print(f'your local IP is {clientIP}')
+    print("incorrect web site address")
 
 public_ip = requests.get("http://wtfismyip.com/text").text
-print(f'your public IP is {public_ip}')
 
+print(f" Your local computer name is {clientName} and IP Address is {clientIP}")
+print(f" your public IP address is {public_ip} ")
+print(f" you inquire the IP address of the web site {webaddress} and it is  {websiteIP}")
